@@ -13,24 +13,15 @@ A comprehensive PDF bank statement parser and fund lineage audit tool for Indone
 |------|--------|----------|
 | **CIMB/OCTO** | CASA statements | Full transaction extraction |
 | **BNI** | Personal statements | Password-protected PDF support |
-| **SPAN** | Government treasury | Treasury fund tracking |
 
-### 🔍 Fund Lineage Tracing
-```
-SPAN (Govt) → BNI (Personal) → CASA (CIMB)
-    ↓              ↓              ↓
- TARIK TUNAI   SETOR TUNAI    BI-FAST
-```
-
-### 🤖 AI-Powered Analysis
-- Gemini AI chatbot for data Q&A
-- Suspicious transaction detection
-- Pattern analysis & alerts
+### 🔍 Fund Flow Visualization
+- Visualize money flow with interactive Sankey diagrams
+- Break down income and expenses by category
 
 ### 📊 Web Dashboard
-- Interactive Sankey diagrams
-- Monthly trend charts
-- Data explorer with filters
+- **Dark Mode**: Professional, eye-friendly interface
+- **Interactive Tables**: Edit categories and sub-categories
+- **Data Export**: Download clean Excel/CSV reports
 
 ## 🛠️ Tech Stack
 
@@ -55,21 +46,24 @@ source venv/bin/activate  # Linux/Mac
 pip install -r requirements.txt
 
 # Run the web dashboard
-streamlit run app.py
+streamlit run web_app.py
 ```
 
 ## 📁 Project Structure
 
 ```
 bank-statement-parser/
-├── parsers/
-│   ├── casa_parser.py     # CIMB/OCTO parser
-│   ├── bni_parser.py      # BNI parser
-│   └── span_parser.py     # Government SPAN parser
-├── app.py                 # Streamlit dashboard
-├── audit.py               # CLI audit script
-├── run_all.py             # Run all parsers
-└── requirements.txt
+├── web_app.py             # 🚦 MAIN ENTRY POINT
+├── src/                   # 🧠 Core Logic
+│   ├── classifier.py      # Bank Detection
+│   ├── parsers/           # 📄 Bank Parser Implementations
+│   │   ├── base.py
+│   │   ├── cimb.py
+│   │   ├── bni.py
+│   │   └── bni_impl.py
+│   └── models/
+│       └── transaction.py
+└── samples/               # 📂 PDF Samples for testing
 ```
 
 ## 📊 Output
@@ -82,12 +76,8 @@ Each parser generates an Excel file with:
 - Monthly breakdown sheets
 
 ### Fund Flow Analysis
-```
-SPAN (Govt)          →    BNI (Personal)    →    CASA (CIMB)
-TARIK TUNAI              SETOR TUNAI             BI-FAST
-33 txns                  80 txns                 54 txns
-Rp 2.6B                  Rp 3.8B                 Rp 3.3B
-```
+- Visualize money flow with Sankey diagrams
+- Track transactions across accounts
 
 ## 🔮 Roadmap
 
