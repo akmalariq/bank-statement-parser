@@ -505,11 +505,11 @@ class CIMBParser(BaseBankParser):
         with pdfplumber.open(pdf_path) as pdf:
             text = pdf.pages[0].extract_text() or ""
         info = AccountInfo(bank_name="CIMB")
-        m = re.search(r'No\.\s*Rekening\s*:\s*(\d+)', text)
+        m = re.search(r'No\\.\\s*Rekening\\s*:\\s*(\\d+)', text)
         if m: info.account_number = m.group(1)
-        m = re.search(r'Nama\s*:\s*(.+?)(?:\n|Mata)', text)
+        m = re.search(r'Nama\\s*:\\s*(.+?)(?:\\n|Mata)', text)
         if m: info.account_name = m.group(1).strip()
-        m = re.search(r'Periode:\s*(.+?)(?:\n|$)', text)
+        m = re.search(r'Periode:\\s*(.+?)(?:\\n|$)', text)
         if m: info.statement_period = m.group(1).strip()
         return info
 
@@ -522,7 +522,7 @@ class CIMBParser(BaseBankParser):
             for p in pdf.pages: text += p.extract_text() + "\\n"
         
         # Simple regex for date dd ShortMonth yyyy
-        matches = re.finditer(r'(\d{2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{4})(.*?)(-?[\d,]+\.\d{2})', text)
+        matches = re.finditer(r'(\\d{2}\\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\s+\\d{4})(.*?)(-?[\\d,]+\\.\\d{2})', text)
         for m in matches:
             d_str, desc, amt_str = m.groups()
             amount = float(amt_str.replace(',', ''))
@@ -585,7 +585,7 @@ def extract_account_info_bni(pdf_path, password=None):
         with pdfplumber.open(pdf_path, password=pw) as pdf:
             if pdf.pages:
                 text = pdf.pages[0].extract_text() or ""
-                m = re.search(r'Rekening\s*-\s*(\d+)', text) # Simplified regex
+                m = re.search(r'Rekening\\s*-\\s*(\\d+)', text) # Simplified regex
                 if m: info['No_Rekening'] = m.group(1)
     except: pass
     return info
