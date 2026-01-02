@@ -11,6 +11,10 @@ This document is a deep dive into `web_app.py`, the main Streamlit application f
 | Total Lines | ~870 |
 | Framework | Streamlit |
 | Main Purpose | PDF upload, parsing, visualization, export |
+| **Deployments** | Server (Streamlit) & Client-Side (Stlite) |
+
+**Note**: This logic is also bundled into `docs/index.html` for the browser version.
+
 
 ---
 

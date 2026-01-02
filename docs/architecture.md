@@ -17,6 +17,22 @@
 └── samples/               # 📂 PDF Samples for testing
 ```
 
+## Deployment Architectures
+The application supports two distinct runtime modes using the same core logic:
+
+### Mode A: Server-Side (Standard Streamlit)
+- **Run**: `streamlit run web_app.py`
+- **backend**: Python (CPython) running on OS.
+- **File Access**: Standard filesystem info `/tmp`.
+- **Use Case**: Local development, Docker containers.
+
+### Mode B: Client-Side (WebAssembly / Stlite)
+- **Run**: `docs/index.html` (Static File)
+- **Backend**: Pyodide (Python compiled to WASM) running in Browser.
+- **File Access**: Virtual in-memory filesystem.
+- **Use Case**: Public deployment (GitHub Pages), Privacy-focused usage.
+- **Note**: `pytesseract` is disabled in this mode.
+
 ## Core Flows
 
 ### 1. Bank Detection (`src/classifier.py`)

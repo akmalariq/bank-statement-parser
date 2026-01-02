@@ -1,8 +1,15 @@
-# 🚀 Getting Started
+## 🚀 Getting Started
 
-This guide walks you through setting up the project from scratch.
+### Option 1: Use Online (No Installation)
+The easiest way to use the parser is via our **Browser-Only App**.
+It runs entirely on your device (files are **never** uploaded to a server).
+👉 **[Open Bank Parser](https://akmalariq.dev/bank-statement-parser/)**
 
 ---
+
+### Option 2: Run Locally (Developer Mode)
+Follow these steps if you want to modify the code or run it on your own machine.
+
 
 ## Prerequisites
 
