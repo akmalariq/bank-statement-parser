@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Bank Statement Parser (Browser Version)</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.50.0/build/stlite.css">
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="root"></div>
     <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.50.0/build/stlite.js"></script>
     <script>
-      stlite.mount({
-        element: document.getElementById("root"),
-        entrypoint: "web_app.py",
-        requirements: ["pandas", "plotly", "openpyxl", "pdfplumber", "cryptography"],
-        files: {
-          "web_app.py": `"""
+        stlite.mount({
+            element: document.getElementById("root"),
+            entrypoint: "web_app.py",
+            requirements: ["pandas", "plotly", "openpyxl", "pdfminer.six==20221105", "pdfplumber==0.9.0", "cryptography"],
+            files: {
+                "web_app.py": `"""
 Bank Statement Parser - Web Interface
 
 A Streamlit app to parse and export bank statements.
@@ -356,8 +358,8 @@ if uploaded_files:
         st.dataframe(df)
 
 `,
-          "src/__init__.py": "",
-          "src/classifier.py": `"""
+                "src/__init__.py": "",
+                "src/classifier.py": `"""
 Bank Classifier
 """
 import pdfplumber
@@ -402,8 +404,8 @@ class BankClassifier:
                 pass
         return None
 `,
-          "src/parsers/__init__.py": "",
-          "src/parsers/base.py": `from abc import ABC, abstractmethod
+                "src/parsers/__init__.py": "",
+                "src/parsers/base.py": `from abc import ABC, abstractmethod
 from typing import List, Optional
 from src.models.transaction import Transaction, AccountInfo
 import pandas as pd
@@ -427,8 +429,8 @@ class BaseBankParser(ABC):
     @abstractmethod
     def extract_account_info(self, pdf_path): pass
 `,
-          "src/models/__init__.py": "",
-          "src/models/transaction.py": `from dataclasses import dataclass
+                "src/models/__init__.py": "",
+                "src/models/transaction.py": `from dataclasses import dataclass
 from datetime import date
 from typing import Optional
 from enum import Enum
@@ -491,7 +493,7 @@ class AccountInfo:
     opening_balance: Optional[float] = None
     closing_balance: Optional[float] = None
 `,
-          "src/parsers/cimb.py": `import re
+                "src/parsers/cimb.py": `import re
 import pdfplumber
 from datetime import datetime
 from src.parsers.base import BaseBankParser
@@ -537,7 +539,7 @@ class CIMBParser(BaseBankParser):
             except: pass
         return txns
 `,
-          "src/parsers/bni.py": `from src.parsers.base import BaseBankParser
+                "src/parsers/bni.py": `from src.parsers.base import BaseBankParser
 from src.parsers.bni_impl import extract_transactions_from_bni, extract_account_info_bni
 from src.models.transaction import Transaction, AccountInfo, TransactionType, TransactionCategory
 from datetime import datetime
@@ -572,7 +574,7 @@ class BNIParser(BaseBankParser):
             except: pass
         return txns
 `,
-          "src/parsers/bni_impl.py": `import pdfplumber
+                "src/parsers/bni_impl.py": `import pdfplumber
 import pandas as pd
 import re
 
@@ -602,8 +604,9 @@ def extract_transactions_from_bni(pdf_path, password=None):
     except: pass
     return pd.DataFrame(data)
 `
-        }
-      });
+            }
+        });
     </script>
-  </body>
+</body>
+
 </html>
